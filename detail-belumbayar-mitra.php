@@ -1,39 +1,20 @@
 <?php
     session_start(); 
 	// cek apakah yang mengakses halaman ini sudah login
-	if($_SESSION['role']!="2"){
+	if($_SESSION['role']!="1"){
 		header("location:login.php?pesan=gagal");
 	}
     include("config.php");
     $error='';
     $id=$_GET['id'];
-    $query=("SELECT produk.foto as foto_produk,* from pemesanan
+    $username = $_SESSION['username'];
+    $query=("SELECT produk.foto as foto_produk, * from pemesanan
     left join detail_pemesanan on pemesanan.no_pemesanan=detail_pemesanan.no_pemesanan
     left join produk on detail_pemesanan.id_produk=produk.id_produk left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
-    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.no_pemesanan='$id';");
-    $images = pg_query($dbconn,$query);   
+    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.no_pemesanan='$id'and pemesanan.id_pemilik='$username';");
     $datas = pg_query($dbconn,$query); 
-    $cek = pg_affected_rows($datas);
-    if($cek > 0){   
-        if(isset($_POST['submitt'])){
-            $restatus = $_POST['restatus'];
-            $query3= "update public.pemesanan set status = '$restatus' where no_pemesanan='$id'";
-            pg_query($dbconn,$query3);
-            echo '<script>'; 
-            echo 'alert("Pengiriman sudah dikonfirmasi");'; 
     
-            echo 'window.location.href = " so-pengiriman-peternak.php";';
-            
-            
-            echo '</script>';
-        }else{
-            // echo"$id";
-        }          
-
-    }else{
-        $error =  'Data Tidak Ditemukan';
-    }
-   
+    
 
 ?>
 <!doctype html>
@@ -80,18 +61,18 @@
     <div class="container"style="padding-top:100px;padding-bottom:5%;"> 
         <div class="card text-center">
             <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
+            <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="true" href="so-belumbayar-peternak.php">Belum dibayar</a>
+                    <a class="nav-link active" aria-current="true" href="so-belumbayar-mitra.php">Belum dibayar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-pengemasan-peternak.php">Perlu Dikemas</a>
+                    <a class="nav-link" href="so-pengemasan-mitra.php">Pengemasan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="so-pengiriman-peternak.php">Perlu Dikirim</a>
+                    <a class="nav-link" href="so-pengiriman-mitra.php">Pengiriman</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-selesai-peternak.php">Selesai</a>
+                    <a class="nav-link" href="so-selesai-mitra.php">Selesai</a>
                 </li>
                 </ul>
             </div>
@@ -101,7 +82,7 @@
             <?php if($error != ''){ ?>
                 <div class="alert alert-danger" role="alert"><?= $error; ?></div>
             <?php } ?>
-            <!-- <h6 id="left">Pesanan <?=$_GET['nama']?></h6> -->
+
             <?php while($data = pg_fetch_object($datas)): ?>
                 <div class="container">
                     <div class="row g-0">
@@ -134,7 +115,7 @@
             <?php endwhile; ?>   
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float:right;">
-                Tandai Selesai
+                Konfirmasi Pembayaran
                 </button>
             </div>
             
@@ -144,7 +125,7 @@
     
     
     
-    <form action="" method="post">
+
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -156,28 +137,21 @@
         </div>
 
         <div class="modal-body">
-        <!-- <input type="text" name="" id="" value="<?=$id?>"> -->
-            <p>Apakah pengiriman sudah selesai?</p>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckbox1" name="restatus" value="3" checked>
-                <label class="form-check-label" for="inlineCheckbox1">Belum</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckbox2" name="restatus" value="4">
-                <label class="form-check-label" for="inlineCheckbox2">Sudah</label>
+        
+            <p>Tambahkan bukti pembayaran</p>
+            <form action="function/upload_bukti.php" method="post" enctype="multipart/form-data">
+            <div class="input-group">
+            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="file">
+            <input type="hidden" name="id" id="" value="<?=$id?>">
+            <input class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04" name="upload" value="Upload">
             </div>
             
+            </form>
         </div>
-        
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <input type="submit" class="btn btn-primary" name="submitt" values="Submit">
-        </div>
-        </div>
-        
+            </div>
     </div>
     </div>
-    </form>
+
     
     <?php     
         

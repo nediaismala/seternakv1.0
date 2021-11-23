@@ -101,7 +101,7 @@
             <?php if($error != ''){ ?>
                 <div class="alert alert-danger" role="alert"><?= $error; ?></div>
             <?php } ?>
-            <h6 id="left">Pesanan <?=$_GET['nama']?></h6>
+            <!-- <h6 id="left">Pesanan <?=$_GET['nama']?></h6> -->
             <?php while($data = pg_fetch_object($datas)): ?>
                 <div class="container">
                     <div class="row g-0">

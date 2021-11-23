@@ -7,10 +7,11 @@
     include("config.php");
     $error='';
     $id=$_GET['id'];
+    $username = $_SESSION['username'];
     $query=("SELECT produk.foto as foto_produk, * from pemesanan
     left join detail_pemesanan on pemesanan.no_pemesanan=detail_pemesanan.no_pemesanan
     left join produk on detail_pemesanan.id_produk=produk.id_produk left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
-    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.no_pemesanan='$id';");
+    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.no_pemesanan='$id'");
     $datas = pg_query($dbconn,$query); 
     $cek = pg_affected_rows($datas);
     if($cek > 0){   
@@ -100,7 +101,7 @@
             <?php if($error != ''){ ?>
                 <div class="alert alert-danger" role="alert"><?= $error; ?></div>
             <?php } ?>
-            <h6 id="left">Pesanan <?=$_GET['nama']?></h6>
+            <!-- <h6 id="left">Pesanan <?=$_GET['nama']?></h6> -->
             <?php while($data = pg_fetch_object($datas)): ?>
                 <div class="container">
                     <div class="row g-0">

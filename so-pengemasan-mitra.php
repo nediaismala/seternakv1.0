@@ -1,7 +1,7 @@
 <?php
     session_start(); 
 	// cek apakah yang mengakses halaman ini sudah login
-	if($_SESSION['role']!="2"){
+	if($_SESSION['role']!="1"){
 		header("location:login.php?pesan=gagal");
 	}
     include("config.php");
@@ -12,7 +12,7 @@
 	left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
 	left join produk on detail_pemesanan.id_produk=produk.id_produk
     left join peternak on produk.id_peternak=peternak.id_peternak
-    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.status='1' and produk.id_peternak='$username'");
+    left join public.user on peternak.id_peternak=public.user.username where pemesanan.status='2' and pemesanan.id_pemilik='$username';");
     $datas = pg_query($dbconn,$query); 
     $cek = pg_affected_rows($datas);
     if($cek > 0){
@@ -67,16 +67,16 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="true" href="so-belumbayar-peternak.php">Belum dibayar</a>
+                    <a class="nav-link" aria-current="true" href="so-belumbayar-mitra.php">Belum dibayar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-pengemasan-peternak.php">Perlu Dikemas</a>
+                    <a class="nav-link active" href="so-pengemasan-mitra.php">Pengemasan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-pengiriman-peternak.php">Perlu Dikirim</a>
+                    <a class="nav-link" href="so-pengiriman-mitra.php">Pengiriman</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-selesai-peternak.php">Selesai</a>
+                    <a class="nav-link" href="so-selesai-mitra.php">Selesai</a>
                 </li>
                 </ul>
             </div>
@@ -91,46 +91,15 @@
                 <ul class="list-group list-group-flush">
                     <?php while($data = pg_fetch_object($datas)): ?>
                         <li class="list-group-item">
-                        <img id="image2" class="rounded-circle" src="upload/<?=$data->foto ?>" style="float:left;">
-                        <?=$data->name?>
+                        <img id="image2" class="rounded-circle" src="upload/<?=$data->foto?>" style="float:left;">
+                        <?=$data->nama_peternakan?>
                         <br><?=$data->tgl_pesan?>
                         <br>No.pemesanan: <?=$data->no_pemesanan?>
-                            <a class="btn btn-outline-success" href="detail-belumbayar-peternak.php?id=<?=$data->no_pemesanan?>" style="float:right; role="button">Detail</a>
+                            <a class="btn btn-outline-success" href="detail-pengemasan-mitra.php?id=<?=$data->no_pemesanan?>" style="float:right; role="button">Detail</a>
                         </li>
                     <?php endwhile; ?>   
                 </ul>
                     
-                
-                    <!-- <div class="container">
-                        <div class="row g-0">
-                            <div style="float:left;">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0" >
-                                        <img id="image2" class="rounded-circle" src="assets/<?=$data->foto_user?>" style="float:left;">
-                                    </div>
-                                    <div class="flex-shrink-1">
-                                    <?=$data->name?>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            
-                            <div class="col-md-6" style="margin-top:20px;">
-                                <img id="image" class="rounded float-start" src="assets/bg-login.png" alt="">
-                                <h6 id="left" class="card-title"><?=$data->nama_produk?></h6>
-                                <p id="left" class="card-text"><?=$data->kuantitas?> <?=$data->satuan?></p>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card-body">
-                                    <p id="right" class="card-text">Rp.<?=$data->harga?></p>
-                                    
-        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                
                 </div>
             </div>
             
