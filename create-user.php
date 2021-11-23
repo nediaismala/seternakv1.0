@@ -16,9 +16,16 @@ if (isset($_POST['submit']) and !empty($_POST['submit'])){
         echo '<script>'; 
         echo 'alert("Record Saved Successfully");'; 
         if($_POST['role']==1){
+            $ret_val2 = $obj->tambahMitra();
+            if($ret_val2==1){
             echo 'window.location.href = "read-user.php";';
-        }else{
+            }
+        }else if($_POST['role']==2){
+            $ret_val1 = $obj->tambahPeternak();
+            if($ret_val1==1){
             echo 'window.location.href = "read-partner.php";';
+            }
+            
         }
         
         echo '</script>';
