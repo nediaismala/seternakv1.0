@@ -3,7 +3,8 @@
 	// cek apakah yang mengakses halaman ini sudah login
 	if($_SESSION['role']!="3"){
 		header("location:login.php?pesan=gagal");
-	}
+    }
+    $username=$_SESSION['username'];
     require('function-user.php');
     $obj = new Db_Class();
 

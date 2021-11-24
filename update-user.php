@@ -3,6 +3,7 @@
  if($_SESSION['role']!="3"){
     header("location:login.php?pesan=gagal");
 }
+$username = $_SESSION['username'];
  require('function-user.php');
  $obj = new Db_Class();
 
@@ -48,7 +49,9 @@
     
     <div class="container"style="padding-top:100px;padding-bottom:5%;"> 
         <div class="card" >
-            <h5 class="card-header">Form Tambah User</h5>
+        <div class="card-header shadow-sm bg-body rounded" style="background-color: white;">
+              <div class="card-title ps-3 fw-bold">Form Update User</div>
+            </div>
             <div class="card-body">
                 <!-- <h5 class="card-title">Special title treatment</h5> -->
             

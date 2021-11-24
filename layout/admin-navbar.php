@@ -21,7 +21,7 @@
                 <ul class="navbar-nav ">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Hi
+                            Hi, <?php echo $username; ?>
                         </a>
 
 

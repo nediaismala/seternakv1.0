@@ -3,6 +3,7 @@ session_start();
 require('function-user.php');
 $obj = new Db_Class();
 $error = '';
+$username = $_SESSION['username'];
 
 if (isset($_POST['submit']) and !empty($_POST['submit'])){
     $uname = $_POST['username'];
@@ -16,9 +17,16 @@ if (isset($_POST['submit']) and !empty($_POST['submit'])){
         echo '<script>'; 
         echo 'alert("Record Saved Successfully");'; 
         if($_POST['role']==1){
+            $ret_val2 = $obj->tambahMitra();
+            if($ret_val2==1){
             echo 'window.location.href = "read-user.php";';
-        }else{
+            }
+        }else if($_POST['role']==2){
+            $ret_val1 = $obj->tambahPeternak();
+            if($ret_val1==1){
             echo 'window.location.href = "read-partner.php";';
+            }
+            
         }
         
         echo '</script>';
@@ -58,7 +66,9 @@ if (isset($_POST['submit']) and !empty($_POST['submit'])){
     
     <div class="container"style="padding-top:100px;padding-bottom:5%;"> 
         <div class="card" >
-            <h5 class="card-header">Form Tambah User/Partner</h5>
+             <div class="card-header shadow-sm bg-body rounded" style="background-color: white;">
+              <div class="card-title ps-3 fw-bold">Form Tambah User/Partner</div>
+            </div>
             <div class="card-body">
                 <!-- <h5 class="card-title">Special title treatment</h5> -->
                 <?php if($error != ''){ ?>
