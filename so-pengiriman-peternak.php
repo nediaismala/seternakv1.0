@@ -13,7 +13,7 @@
 	left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
 	left join produk on detail_pemesanan.id_produk=produk.id_produk
     left join peternak on produk.id_peternak=peternak.id_peternak
-    left join public.user on peternak.id_peternak=public.user.username where pemesanan.status='3' and produk.id_peternak='$username';");
+    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.status='3' and produk.id_peternak='$username';");
     $datas = pg_query($dbconn,$query); 
     $cek = pg_affected_rows($datas);
     if($cek > 0){
@@ -92,11 +92,11 @@
                 <ul class="list-group list-group-flush">
                     <?php while($data = pg_fetch_object($datas)): ?>
                         <li class="list-group-item">
-                        <img id="image2" class="rounded-circle" src="assets/<?=$data->foto?>" style="float:left;">
+                        <img id="image2" class="rounded-circle" src="upload/<?=$data->foto?>" style="float:left;">
                         <?=$data->name?>
                         <br><?=$data->tgl_pesan?>
                         <br>No.pemesanan: <?=$data->no_pemesanan?>
-                            <a class="btn btn-outline-success" href="detail-pengiriman-peternak.php?id=<?=$data->no_pemesanan?>&nama=<?=$data->name?>" style="float:right; role="button">Detail</a>
+                            <a class="btn btn-outline-success" href="detail-pengiriman-peternak.php?id=<?=$data->no_pemesanan?>" style="float:right; role="button">Detail</a>
                         </li>
                     <?php endwhile; ?>   
                 </ul>

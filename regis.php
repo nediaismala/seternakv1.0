@@ -15,24 +15,63 @@ if (isset($_POST['submit']) and !empty($_POST['submit'])){
         $data   = pg_fetch_assoc($query);
         $pass = $_POST['password'];
         $repass = $_POST['repassword'];
+        
         if($pass==$repass){
             $_SESSION['username'] = $uname;
 
             $ret_val = $obj->createUser();
             if($ret_val==1){
-            
-            $ret_val1 = $obj->tambahPeternak();
-                if($ret_val1==1){
-                    echo '<script>'; 
-                    echo 'alert("Record Saved Successfully");'; 
-            
-                    echo 'window.location.href = "login.php";';
-                    
-                    
-                    echo '</script>';
-            
+                $role = $_POST['role'];
+                if($role==1){
+                    $ret_val2 = $obj->tambahMitra();
+                    if($ret_val2==1){
+                        echo '<script>'; 
+                        echo 'alert("Anda telah terdaftar sebagai User");'; 
+                
+                        echo 'window.location.href = "login.php";';
+                        
+                        
+                        echo '</script>';
+                
+                    }else{
+                        echo '<script>'; 
+                        echo 'alert("Gagal menyimpan data");'; 
+                
+                        echo 'window.location.href = "regis.php";';
+                        
+                        
+                        echo '</script>';
+                    }
+                }else if($role=2){
+                    $ret_val1 = $obj->tambahPeternak();
+                    if($ret_val1==1){
+                        echo '<script>'; 
+                        echo 'alert("Anda telah terdaftar sebagai Peternak");'; 
+                
+                        echo 'window.location.href = "login.php";';
+                        
+                        
+                        echo '</script>';
+                
+                    }else{
+                        echo '<script>'; 
+                        echo 'alert("Gagal menyimpan data");'; 
+                
+                        echo 'window.location.href = "regis.php";';
+                        
+                        
+                        echo '</script>';
+                    }
                 }
-            }
+            // echo '<script>'; 
+            // echo 'alert("Record Saved Successfully");'; 
+    
+            // echo 'window.location.href = "login.php";';
+            
+            
+            // echo '</script>';
+                
+        }
             
         }else{
             $validate = 'Password tidak sama !!';
@@ -139,10 +178,7 @@ if (isset($_POST['submit']) and !empty($_POST['submit'])){
                 <label for="exampleFormControlTextarea1" class=" col-form-label col-form-label-sm">Address</label>
                 <textarea class="form-control form-control-sm" id="exampleFormControlTextarea1" rows="3" name="alamat" require></textarea>
             </div>
-            <div class="col-md-12">
-                <!-- <label for="exampleFormControlInput1" class="2 col-form-label col-form-label-sm">Foto</label> -->
-                <input class="form-control" type="file" id="formFile" name="foto">
-            </div>
+     
             <div class="col-md-6">
                 <label for="exampleFormControlInput1" class=" col-form-label col-form-label-sm">Password</label>
                 <input type="password" class="form-control form-control-sm" id="exampleFormControlInput1" placeholder="password" name="password" require>

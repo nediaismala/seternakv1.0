@@ -14,10 +14,15 @@
     }
     if(isset($_POST['delete'])){
        $ret_val = $obj->deleteuser();
-       if($ret_val==1){
-           
+       if($ret_val==1){  
           echo "<script language='javascript'>";
           echo "alert('Record Deleted Successfully'){
+              window.location.reload();
+          }";
+          echo "</script>";
+      }else{
+          echo "<script language='javascript'>";
+          echo "alert('Gagal menghapus data'){
               window.location.reload();
           }";
           echo "</script>";
