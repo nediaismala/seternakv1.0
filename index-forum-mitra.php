@@ -2,7 +2,7 @@
 include 'koneksi.php';
 // $username =$_GET['username'];
 session_start();
-if($_SESSION['role']!="2"){
+if($_SESSION['role']!="1"){
 header("location:login.php?pesan=gagal");
 }
 $username = $_SESSION['username'];

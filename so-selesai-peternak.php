@@ -139,6 +139,6 @@
     
     <?php     
         
-    include('layout/admin-footer.php');
+    include('layout/peternak-footer.php');
     ?>
 </html>

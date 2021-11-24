@@ -58,7 +58,7 @@
     -->
     
     <?php
-    include('layout/admin-navbar.php');
+    include('layout/peternak-navbar.php');
     ?>
 
 
@@ -139,6 +139,6 @@
     
     <?php     
         
-    include('layout/admin-footer.php');
+    include('layout/peternak-footer.php');
     ?>
 </html>
