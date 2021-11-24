@@ -1,6 +1,12 @@
 
 <?php
 include 'koneksi.php';
+    // $username =$_GET['username'];
+    session_start();
+    if($_SESSION['role']!="3"){
+		header("location:login.php?pesan=gagal");
+	}
+    $username = $_SESSION['username'];
 ?>
 
 <!doctype html>

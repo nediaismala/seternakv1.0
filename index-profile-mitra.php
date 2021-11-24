@@ -1,3 +1,14 @@
+<?php
+    include 'koneksi.php';
+    // $username =$_GET['username'];
+    session_start();
+    if($_SESSION['role']!="1"){
+		header("location:login.php?pesan=gagal");
+	}
+    $username = $_SESSION['username'];
+    // echo $username;
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -196,22 +207,19 @@
 
   include('koneksi.php');
 
-  if (isset($_GET['username'])) {
-    $username = 'nedi';
+  if(isset($username)){
+    $username = $_SESSION['username'];
     $sql = pg_query("select * from mitra join public.user on mitra.id_pemilik=public.user.username where id_pemilik='" . $username . "'");
+   
     $user_data = pg_fetch_array($sql);
-    
-
-
-
-
-
-  ?>
+?>
   <?php
-
   }
+  echo $user_data['name'];
 
   ?>
+
+
 
 
 
@@ -219,7 +227,7 @@
 
 <body>
   <!-- Navbar -->
- <?php include('layout/peternak-navbar.php');
+ <?php include('layout/mitra-navbar.php');
 
  ?>
   <!-- Navbar -->
@@ -284,13 +292,13 @@
                 </div>
 
 
-                <div class="mb-3 col-lg-6 ps-5 col-xs-12 input-wrapper form-container">
+                <!-- <div class="mb-3 col-lg-6 ps-5 col-xs-12 input-wrapper form-container">
                   <label for="password" class="form-label">Password</label>
                   <div class="d-flex bd-highlight">
                     <input id="password" name="password" type="password" class="form-control p-2 flex-grow-1 bd-highlight" value="<?php echo $user_data['password']; ?>" disabled>
                     <span id=showPassword data-toggle="tooltip" class="btn btn-success" title="Lihat Password"><i id="icon" class="bi bi-eye pt-2 text-light"></i></span>
                   </div>
-                </div>
+                </div> -->
 
 
 
@@ -411,7 +419,7 @@
 
 
   <!-- Footer -->
-  <?php include('layout/peternak-footer.php'); ?>
+  <?php include('layout/mitra-footer.php'); ?>
   <!-- Footer end -->
 
 

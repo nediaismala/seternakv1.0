@@ -9,20 +9,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ">
-                <a class="mx-4 nav-link text-light " aria-current="page" href="">Pasar</a>
+                <a class="mx-4 nav-link text-light " aria-current="page" href="index-pasar.php">Pasar</a>
                 <a class="mx-4 nav-link  text-light" href="index-tanya-ahli-mitra.php">Tanya Ahli</a>
                 <a class="mx-4 nav-link text-light" href="">Diskusi</a>
             </div>
             <div id="bdm" class="ms-auto">
+                
                 <ul class="navbar-nav ">
+                <a class="mx-3 nav-link text-light bi bi-cart " href="index-keranjang.php"></a>
                     <li class="nav-item dropdown">
+                        
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Hi
+                            Hi, <?php echo $username; ?>
                         </a>
 
 
                         <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #0e8550;" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="index-profile-mitra.php?username=<?php echo $username?>">Profile</a></li>
+                            <li><a class="dropdown-item" href="index-profile-mitra.php">Profile</a></li>
                             <li><a class="dropdown-item" href="#">Pesananan Saya</a></li>
                             <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                         </ul>
