@@ -9,14 +9,14 @@ if(isset($_POST['submit'])){
     // $hasil = pg_affected_rows($query);
     if($query){
         echo '<script>'; 
-        echo 'alert("Berhasil");'; 
+        echo 'alert("Terima kasih telah memberikan penilaian");'; 
         echo 'window.location.href = "../so-selesai-mitra.php";';
         echo '</script>';
     }else{
-        // echo '<script>'; 
-        // echo 'alert("Gagal");'; 
-        // echo 'window.location.href = "../so-selesai-mitra.php";';
-        // echo '</script>';
+        echo '<script>'; 
+        echo 'alert("Gagal memberikan penilaian");'; 
+        echo 'window.location.href = "../so-selesai-mitra.php";';
+        echo '</script>';
     }
 }
 

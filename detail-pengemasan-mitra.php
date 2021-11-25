@@ -10,11 +10,13 @@
     $username = $_SESSION['username'];
     $query=("SELECT produk.foto as foto_produk, * from pemesanan
     left join detail_pemesanan on pemesanan.no_pemesanan=detail_pemesanan.no_pemesanan
-    left join produk on detail_pemesanan.id_produk=produk.id_produk left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
-    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.no_pemesanan='$id'and pemesanan.id_pemilik='$username';");
+    left join produk on detail_pemesanan.id_produk=produk.id_produk 
+    left join peternak on produk.id_peternak=peternak.id_peternak
+    left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
+    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.no_pemesanan='$id'and pemesanan.id_pemilik='$username' and detail_pemesanan.status='2';");
     $datas = pg_query($dbconn,$query); 
     
-
+    
 
 ?>
 <!doctype html>
@@ -76,14 +78,14 @@
                 </li>
                 </ul>
             </div>
-            
+           
             <div class="card-body">
             <div class="card" style="padding:10px;">
             <?php if($error != ''){ ?>
                 <div class="alert alert-danger" role="alert"><?= $error; ?></div>
             <?php } ?>
-            <!-- <h6 id="left">Pesanan <?=$_GET['nama']?></h6> -->
             <?php while($data = pg_fetch_object($datas)): ?>
+            
                 <div class="container">
                     <div class="row g-0">
                         <div style="float:left;">
@@ -100,6 +102,8 @@
                         
                         <div class="col-md-6" style="margin-top:20px;">
                             <img id="image" class="rounded float-start" src="assets/produk/<?=$data->foto_produk?>" alt="">
+                            <h6 id="left" class="card-title">Kode : <?=$data->id_produk?><?php $id_produk=$data->id_produk ?></h6>
+                            <h6 id="left" class="card-title"><?=$data->nama_peternakan?></h6>
                             <h6 id="left" class="card-title"><?=$data->nama_produk?></h6>
                             <p id="left" class="card-text"><?=$data->kuantitas?> <?=$data->satuan?></p>
                         </div>
@@ -108,19 +112,53 @@
                                 <p id="right" class="card-text">Rp.<?=$data->harga?></p>
                             </div>
                         </div>
+                        <div class="col">
+                        <!-- Button trigger modal -->
+                        <!-- <button  class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $id_produk; ?>" style="float:right;" type="button"> 
+                        Konfirmasi Pembayaran
+                        </button> -->
+
+                        </div>
                     </div>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal<?php echo $id_produk; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Bukti Transfer</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                    
+                        <p>Tambahkan bukti pembayaran</p>
+                        <form action="function/upload_bukti.php" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                        <input type="hidden" class="form-control" id="exampleFormControlInput1" name="id_produk" value="<?=$id_produk?>">
+                        </div>
+                        <div class="input-group">
+                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="file" >
+                        <input type="hidden" name="id" id="" value="<?=$id?>">
+                        <input class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04" name="upload" value="Upload">
+                        </div>
+                        
+                        </form>
+                    </div>
+                        </div>
+                </div>
+                </div>
+                <?php endwhile; ?> 
                 <br>
-                                    
-            <?php endwhile; ?>   
-            
             </div>
             
             </div>
         </div>
     </div>
     
-    
+  
+</body>
     <?php     
         
     include('layout/admin-footer.php');

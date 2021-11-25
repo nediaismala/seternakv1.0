@@ -7,12 +7,13 @@
     include("config.php");
     $error='';
     $username = $_SESSION['username'];
-    $query=("SELECT * from pemesanan
-    left join detail_pemesanan on pemesanan.no_pemesanan=detail_pemesanan.no_pemesanan
-	left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
-	left join produk on detail_pemesanan.id_produk=produk.id_produk
-    left join peternak on produk.id_peternak=peternak.id_peternak
-    left join public.user on peternak.id_peternak=public.user.username where pemesanan.status='3' and pemesanan.id_pemilik='$username';");
+    $query=("SELECT DISTINCT ON (detail_pemesanan.no_pemesanan) *
+    FROM detail_pemesanan
+    left join pemesanan on detail_pemesanan.no_pemesanan=pemesanan.no_pemesanan
+    left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
+    left join public.user on mitra.id_pemilik=public.user.username
+    where mitra.id_pemilik='$username' AND detail_pemesanan.status='3'
+    ORDER BY detail_pemesanan.no_pemesanan ASC");
     $datas = pg_query($dbconn,$query); 
     $cek = pg_affected_rows($datas);
     if($cek > 0){
@@ -91,10 +92,8 @@
                 <ul class="list-group list-group-flush">
                     <?php while($data = pg_fetch_object($datas)): ?>
                         <li class="list-group-item">
-                        <img id="image2" class="rounded-circle" src="upload/<?=$data->foto?>" style="float:left;">
-                        <?=$data->nama_peternakan?>
-                        <br><?=$data->tgl_pesan?>
-                        <br>No.pemesanan: <?=$data->no_pemesanan?>
+                        <h5>No.pemesanan: <?=$data->no_pemesanan?></h5>
+                        <?php echo date("d F Y", strtotime($data->tgl_pesan)) ?>
                             <a class="btn btn-outline-success" href="detail-pengiriman-mitra.php?id=<?=$data->no_pemesanan?>" style="float:right; role="button">Detail</a>
                         </li>
                     <?php endwhile; ?>   

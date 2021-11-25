@@ -10,8 +10,10 @@
     $username = $_SESSION['username'];
     $query=("SELECT produk.foto as foto_produk, * from pemesanan
     left join detail_pemesanan on pemesanan.no_pemesanan=detail_pemesanan.no_pemesanan
-    left join produk on detail_pemesanan.id_produk=produk.id_produk left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
-    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.no_pemesanan='$id'and pemesanan.id_pemilik='$username';");
+    left join produk on detail_pemesanan.id_produk=produk.id_produk 
+    left join peternak on produk.id_peternak=peternak.id_peternak
+    left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
+    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.no_pemesanan='$id'and pemesanan.id_pemilik='$username' and detail_pemesanan.status='4';");
     $datas = pg_query($dbconn,$query); 
     
 
@@ -57,7 +59,7 @@
 
         .rating {
             border: none;
-            float: left;
+            float: right;
         }
 
         .rating>input {
@@ -177,6 +179,8 @@
                         
                         <div class="col-md-6" style="margin-top:20px;">
                             <img id="image" class="rounded float-start" src="assets/produk/<?=$data->foto_produk?>" alt="">
+                            <h6 id="left" class="card-title">Kode : <?=$data->id_produk?><?php $id_produk=$data->id_produk ?></h6>
+                            <h6 id="left" class="card-title"><?=$data->nama_peternakan?></h6>
                             <h6 id="left" class="card-title"><?=$data->nama_produk?></h6>
                             <p id="left" class="card-text"><?=$data->kuantitas?> <?=$data->satuan?></p>
                         </div>
