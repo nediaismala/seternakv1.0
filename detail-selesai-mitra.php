@@ -10,8 +10,10 @@
     $username = $_SESSION['username'];
     $query=("SELECT produk.foto as foto_produk, * from pemesanan
     left join detail_pemesanan on pemesanan.no_pemesanan=detail_pemesanan.no_pemesanan
-    left join produk on detail_pemesanan.id_produk=produk.id_produk left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
-    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.no_pemesanan='$id'and pemesanan.id_pemilik='$username';");
+    left join produk on detail_pemesanan.id_produk=produk.id_produk 
+    left join peternak on produk.id_peternak=peternak.id_peternak
+    left join mitra on pemesanan.id_pemilik=mitra.id_pemilik
+    left join public.user on mitra.id_pemilik=public.user.username where pemesanan.no_pemesanan='$id'and pemesanan.id_pemilik='$username' and detail_pemesanan.status='4';");
     $datas = pg_query($dbconn,$query); 
     
 
@@ -39,7 +41,84 @@
     #right-btn { align:right;}
     #image { width: 100px ; height: 100px ; margin-right:20px;}
     #image2 { width: 50px ; height: 50px ; margin-right:20px;}
-    
+    @import url(./fonts/font-awesome/css/font-awesome.css);
+
+        form,
+        label {
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            width: 408px;
+            border: 1px #ccc solid;
+            padding: 15px;
+            margin: auto;
+            height: 200px;
+        }
+
+        .rating {
+            border: none;
+            float: right;
+        }
+
+        .rating>input {
+            display: none;
+        }
+
+        .rating>label::before {
+            margin: 5px;
+            font-size: 1.25em;
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f005";
+        }
+
+        .rating>label {
+            color: #ddd;
+            float: right;
+        }
+
+        .rating>input:checked~label,
+        .rating:not(:checked)>label:hover,
+        .rating:not(:checked)>label:hover~label {
+            color: #f7d106;
+        }
+
+        .rating>input:checked+label:hover,
+        .rating>input:checked~label:hover,
+        .rating>label:hover~input:checked~label,
+        .rating>input:checked~label:hover~label {
+            color: #fce873;
+        }
+
+        h4 {
+            font-weight: normal;
+            margin-top: 40px;
+            margin-bottom: 0px;
+        }
+
+        #hasil {
+            font-size: 20px;
+        }
+
+        #star {
+            float: left;
+            padding-right: 20px;
+        }
+
+        #star span {
+            padding: 3px;
+            font-size: 20px;
+        }
+
+        .on {
+            color: #f7d106
+        }
+
+        .off {
+            color: #ddd;
+        }
   </style>
   <body>
 
@@ -100,6 +179,8 @@
                         
                         <div class="col-md-6" style="margin-top:20px;">
                             <img id="image" class="rounded float-start" src="assets/produk/<?=$data->foto_produk?>" alt="">
+                            <h6 id="left" class="card-title">Kode : <?=$data->id_produk?><?php $id_produk=$data->id_produk ?></h6>
+                            <h6 id="left" class="card-title"><?=$data->nama_peternakan?></h6>
                             <h6 id="left" class="card-title"><?=$data->nama_produk?></h6>
                             <p id="left" class="card-text"><?=$data->kuantitas?> <?=$data->satuan?></p>
                         </div>
@@ -131,24 +212,67 @@
     
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Review Produk</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Review</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body">
         <!-- <input type="text" name="" id="" value="<?=$id?>"> -->
-            <form action="upload_bukti.php" method="post" enctype="multipart/form-data">
+            <form method="POST" action="function/proses_review.php">
+                <input type="hidden" id="id" name="id" value="<?=$id?>">
+                <div id="rating" class="rating">
+                <input type="radio" class="rate" id="star5" name="rating" value="5"/>
+                <label for="star5" title="Sempurna - 5 Bintang"></label>
+
+                <input type="radio" class="rate" id="star4" name="rating" value="4"/>
+                <label for="star4" title="Sangat Bagus - 4 Bintang"></label>
+
+                <input type="radio" class="rate" id="star3" name="rating" value="3" />
+                <label for="star3" title="Bagus - 3 Bintang"></label>
+
+                <input type="radio" class="rate" id="star2" name="rating" value="2" />
+                <label for="star2" title="Tidak Buruk - 2 Bintang"></label>
+
+                <input type="radio" class="rate" id="star1" name="rating" value="1" />
+                <label for="star1" title="Buruk - 1 Bintang"></label>
+
+                </div>
             <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Komentar</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="feedback" id="feedback"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            <button type="submit" class="btn btn-primary" name="submit" id="submit" value="submit">Submit</button>
             </form>
         </div>
             </div>
     </div>
     </div>
+    <script type="text/javascript" src="./jquery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () { 
+        $('#submit').click(function(){
+            var id = $("#id").val(); var rate = $(".rate").val(); var feedback = $("#feedback").val();
+                $.ajax({
+                    type: "POST", 
+                    url: "function/proses_review.php",
+                    data:  "id="+id + "&rating="+rate + "&feedback="+feedback,
+                    dataType: "JSON",
+                    beforeSend:function(){
+                          
+                    },
+                    success: function(data){
+                         
+                    },
+                    error: function(data)
+                    {
 
+                    }           
+              });
+
+        });
+      }); 
+    </script>
+</body>
     
     <?php     
         
