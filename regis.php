@@ -27,19 +27,13 @@ if (isset($_POST['submit']) and !empty($_POST['submit'])){
                     if($ret_val2==1){
                         echo '<script>'; 
                         echo 'alert("Anda telah terdaftar sebagai User");'; 
-                
                         echo 'window.location.href = "login.php";';
-                        
-                        
                         echo '</script>';
                 
                     }else{
                         echo '<script>'; 
                         echo 'alert("Gagal menyimpan data");'; 
-                
                         echo 'window.location.href = "regis.php";';
-                        
-                        
                         echo '</script>';
                     }
                 }else if($role=2){
@@ -47,19 +41,13 @@ if (isset($_POST['submit']) and !empty($_POST['submit'])){
                     if($ret_val1==1){
                         echo '<script>'; 
                         echo 'alert("Anda telah terdaftar sebagai Peternak");'; 
-                
                         echo 'window.location.href = "login.php";';
-                        
-                        
                         echo '</script>';
                 
                     }else{
                         echo '<script>'; 
                         echo 'alert("Gagal menyimpan data");'; 
-                
                         echo 'window.location.href = "regis.php";';
-                        
-                        
                         echo '</script>';
                     }
                 }

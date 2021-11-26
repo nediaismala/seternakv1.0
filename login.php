@@ -1,9 +1,11 @@
 <?php 
-	// if(isset($_GET['pesan'])){
-	// 	if($_GET['pesan']=="gagal"){
-	// 		echo "<div class='alert'>Username dan Password tidak sesuai !</div>";
-	// 	}
-	// }
+$validate='';
+	if(isset($_GET['pesan'])){
+		if($_GET['pesan']=="gagal"){
+			$validate = 'Username dan Password tidak sesuai !';
+		}
+	}
+  
 	?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +47,7 @@
         <div class=text-center>
         <!-- <img src="assets/ayam1.jpg" class="img-fluid" alt="...""> -->
         <div class="card bg-dark text-white" style="border:none;">
-        <img src="assets/ayam2.png" class="img-fluid" alt="..."style="border:none;">
+        <img src="assets/crop.png" class="img-fluid" alt="..."style="border:none;">
           <div class="card-img-overlay text-start" style="margin-top:35%;">
             <h4 class="card-title">Masuk</h4>
             <p class="card-text">Silahkan masukkan email dan password untuk melanjutkan akses</p>
@@ -66,16 +68,21 @@
         
           <div style="padding:12px;">
             <form action="cek_login.php" method="post">
+              <?php if($validate != '') {?>
+                    <p class="text-danger"><?= $validate; ?></p>
+              <?php }?>
               <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Username</label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username" name="username" required>
               </div>
               <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Password</label>
+
                 <div class="d-flex bd-highlight">
-                <input type="password" class="form-control" id="password" placeholder="**********" name="password" required>
+                <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Password" name="password" required>
                 <span id=showPassword data-toggle="tooltip" class="btn btn-success" title="Lihat Password"><i id="icon" class="bi bi-eye pt-2 text-light"></i></span>
                 </div>
+
               </div>
               <div class="d-grid gap-2">
                 <input type="submit" class="btn btn-success" name="submit" value="Masuk">
@@ -84,7 +91,7 @@
 
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-between align-items-center" style="border: none">
-              <small><a href="#" class="link-success">Lupa Password?</a></small>
+              <small><a href="forgot_pass.php" class="link-success">Lupa Password?</a></small>
               <small><a href="regis.php" class="link-success">Belum punya akun?<b>Daftar</b></a></small>
               </li>
             </ul>
