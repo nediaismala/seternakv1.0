@@ -19,7 +19,7 @@ if($cek > 0){
 			$_SESSION['username'] = $username;
 			$_SESSION['role'] = "1";
 			// alihkan ke halaman dashboard user
-			header("location:halaman_user.php");
+			header("location:so-belumbayar-mitra.php");
 
 		// cek jika user login sebagai partner
 		}else if($data['role']=="2"){
@@ -43,7 +43,7 @@ if($cek > 0){
 			header("location:login.php?pesan=gagal");
 		}	
 	}else{
-		header("location:so-belumbayar-user.php?pesan=gagal");
+		header("location:login.php?pesan=gagal");
 	}
 	
 
