@@ -4,6 +4,7 @@
 	if($_SESSION['role']!="2"){
 		header("location:login.php?pesan=gagal");
 	}
+    $username=$_SESSION['username'];
     include("config.php");
     $error='';
     $id=$_GET['id'];
@@ -62,6 +63,13 @@
     #right-btn { align:right;}
     #image { width: 100px ; height: 100px ; margin-right:20px;}
     #image2 { width: 50px ; height: 50px ; margin-right:20px;}
+    .form-check-input:checked {
+    background-color: #198754;
+    border-color: #198754;
+    }
+    .nav-link.order {
+    color: #198754 !important;
+    }
     
   </style>
   <body>
@@ -78,24 +86,24 @@
     -->
     
     <?php
-    include('layout/admin-navbar.php');
+    include('layout/peternak-navbar.php');
     ?>
 
-    <div class="container"style="padding-top:100px;padding-bottom:5%;"> 
+    <div class="container"style="padding-top:100px;padding-bottom:5%;min-height:71.3vh;"> 
         <div class="card text-center">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="true" href="so-belumbayar-peternak.php">Belum dibayar</a>
+                    <a class="nav-link order" aria-current="true" href="so-belumbayar-peternak.php">Belum dibayar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-pengemasan-peternak.php">Perlu Dikemas</a>
+                    <a class="nav-link order" href="so-pengemasan-peternak.php">Perlu Dikemas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="so-pengiriman-peternak.php">Perlu Dikirim</a>
+                    <a class="nav-link order active" href="so-pengiriman-peternak.php">Perlu Dikirim</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-selesai-peternak.php">Selesai</a>
+                    <a class="nav-link order" href="so-selesai-peternak.php">Selesai</a>
                 </li>
                 </ul>
             </div>
@@ -132,7 +140,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card-body">
-                                <p id="right" class="card-text">Rp.<?=$data->harga?></p>
+                                <p id="right" class="card-text">Rp.<?=$data->harga*$data->kuantitas?></p>
                             </div>
                         </div>
                         <div class="col">
@@ -172,7 +180,7 @@
                         
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" name="submitt" values="Submit">
+                            <input type="submit" class="btn btn-success" name="submitt" values="Submit">
                         </div>
                         </div>
                         
@@ -190,6 +198,6 @@
 
     <?php     
         
-    include('layout/admin-footer.php');
+    include('layout/peternak-footer.php');
     ?>
 </html>

@@ -18,6 +18,9 @@ $validate='';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 
+     <!-- icon boostrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+
     <title>Masuk Seternak</title>
     <style>
         body{
@@ -74,7 +77,12 @@ $validate='';
               </div>
               <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Password</label>
+
+                <div class="d-flex bd-highlight">
                 <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Password" name="password" required>
+                <span id=showPassword data-toggle="tooltip" class="btn btn-success" title="Lihat Password"><i id="icon" class="bi bi-eye pt-2 text-light"></i></span>
+                </div>
+
               </div>
               <div class="d-grid gap-2">
                 <input type="submit" class="btn btn-success" name="submit" value="Masuk">
@@ -98,3 +106,25 @@ $validate='';
 </div>
 </body>
 </html>
+
+<script>
+    var showPassword = document.getElementById('showPassword')
+    var password = document.getElementById('password')
+    var icon = document.querySelector('#showPassword i')
+
+
+    showPassword.addEventListener('click', function(e) {
+      if (password.type === 'password') {
+        password.setAttribute('type', 'text')
+        icon.classList.remove('bi bi-eye-slash')
+        icon.classList.add('bi bi-eye')
+      } else {
+        password.setAttribute('type', 'password')
+        icon.classList.remove('bi bi-eye')
+
+        icon.classList.add('bi bi-eye-slash')
+
+      }
+
+    })
+  </script>

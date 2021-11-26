@@ -2,7 +2,7 @@
 include 'koneksi.php';
 // $username =$_GET['username'];
 session_start();
-if($_SESSION['role']!="2"){
+if($_SESSION['role']!="1"){
 header("location:login.php?pesan=gagal");
 }
 $username = $_SESSION['username'];
@@ -44,7 +44,7 @@ $username = $_SESSION['username'];
   <!-- Navbar -->
   <section>
   <?php 
-    include('layout/peternak-navbar.php');
+    include('layout/mitra-navbar.php');
   ?>
   </section>
   <!-- Navbar -->
@@ -55,7 +55,9 @@ $username = $_SESSION['username'];
 
   <!-- Content -->
   <section>
-  <div class="container " style="margin-top:100px;min-height:59vh;">
+    <div class="container " style="margin-top:100px;min-height:59vh;">
+
+    
       <?php
         $i=0;
         $ambil = pg_query($conn,"SELECT * FROM forum");
@@ -74,8 +76,7 @@ $username = $_SESSION['username'];
       <?php
         };
       ?>
-      </div>
-    
+    </div>
   </section>
  
   <!-- Content end -->
@@ -107,7 +108,7 @@ $username = $_SESSION['username'];
 
 
   <!-- Footer -->
-<?php include('layout/peternak-footer.php'); ?>
+<?php include('layout/mitra-footer.php'); ?>
 <!-- Footer end -->
 
 

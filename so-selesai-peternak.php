@@ -4,6 +4,7 @@
 	if($_SESSION['role']!="2"){
 		header("location:login.php?pesan=gagal");
 	}
+    $username=$_SESSION['username'];
     include("config.php");
     $error='';
     $username = $_SESSION['username'];
@@ -45,6 +46,9 @@
     #right-btn { align:right;}
     #image { width: 100px ; height: 100px ; margin-right:20px;}
     #image2 { width: 50px ; height: 50px ; margin-right:20px;}
+    .nav-link.order {
+    color: #198754 !important;
+    }
   </style>
   <body>
 
@@ -60,25 +64,25 @@
     -->
     
     <?php
-    include('layout/admin-navbar.php');
+    include('layout/peternak-navbar.php');
     ?>
 
 
-    <div class="container"style="padding-top:100px;padding-bottom:5%;"> 
+    <div class="container"style="padding-top:100px;padding-bottom:5%;min-height:71.3vh;"> 
         <div class="card text-center">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="true" href="so-belumbayar-peternak.php">Belum dibayar</a>
+                    <a class="nav-link order" aria-current="true" href="so-belumbayar-peternak.php">Belum dibayar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-pengemasan-peternak.php">Perlu Dikemas</a>
+                    <a class="nav-link order" href="so-pengemasan-peternak.php">Perlu Dikemas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-pengiriman-peternak.php">Perlu Dikirim</a>
+                    <a class="nav-link order" href="so-pengiriman-peternak.php">Perlu Dikirim</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="so-selesai-peternak.php">Selesai</a>
+                    <a class="nav-link order active" href="so-selesai-peternak.php">Selesai</a>
                 </li>
                 </ul>
             </div>
@@ -138,7 +142,7 @@
     
     <?php     
         
-    include('layout/admin-footer.php');
+    include('layout/peternak-footer.php');
     ?>
 </html>
 

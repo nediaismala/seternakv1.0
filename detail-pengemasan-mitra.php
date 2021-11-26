@@ -4,6 +4,7 @@
 	if($_SESSION['role']!="1"){
 		header("location:login.php?pesan=gagal");
 	}
+    $username=$_SESSION['username'];
     include("config.php");
     $error='';
     $id=$_GET['id'];
@@ -41,6 +42,9 @@
     #right-btn { align:right;}
     #image { width: 100px ; height: 100px ; margin-right:20px;}
     #image2 { width: 50px ; height: 50px ; margin-right:20px;}
+    .nav-link.order{
+    color: #198754 !important;
+    }
     
   </style>
   <body>
@@ -57,24 +61,24 @@
     -->
     
     <?php
-    include('layout/admin-navbar.php');
+    include('layout/mitra-navbar.php');
     ?>
 
-    <div class="container"style="padding-top:100px;padding-bottom:5%;"> 
+    <div class="container"style="padding-top:100px;padding-bottom:5%;min-height:71.3vh;"> 
         <div class="card text-center">
             <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="true" href="so-belumbayar-mitra.php">Belum dibayar</a>
+                    <a class="nav-link order" aria-current="true" href="so-belumbayar-mitra.php">Belum dibayar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="so-pengemasan-mitra.php">Pengemasan</a>
+                    <a class="nav-link order active" href="so-pengemasan-mitra.php">Pengemasan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-pengiriman-mitra.php">Pengiriman</a>
+                    <a class="nav-link order" href="so-pengiriman-mitra.php">Pengiriman</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-selesai-mitra.php">Selesai</a>
+                    <a class="nav-link order" href="so-selesai-mitra.php">Selesai</a>
                 </li>
                 </ul>
             </div>
@@ -109,7 +113,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card-body">
-                                <p id="right" class="card-text">Rp.<?=$data->harga?></p>
+                                <p id="right" class="card-text">Rp.<?=$data->harga*$data->kuantitas?></p>
                             </div>
                         </div>
                         <div class="col">
@@ -161,6 +165,6 @@
 </body>
     <?php     
         
-    include('layout/admin-footer.php');
+    include('layout/mitra-footer.php');
     ?>
 </html>

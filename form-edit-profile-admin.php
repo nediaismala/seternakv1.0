@@ -301,27 +301,32 @@ $username = $_SESSION['username'];
                     </div>
                   </div>
 
-                  <div class="card-title ps-5 form-container">
-                    <div class="d-flex flex-wrap align-items-center">
-
-                      <div class="mb-3 col-lg-6 col-xs-12 me-4 input-wrapper" style="flex: 1;">
+                  <input id="password" name="password" type="hidden" class="form-control p-2 flex-grow-1 bd-highlight" value="<?php echo $user_data['password']; ?>" >
+                  <!-- <div class="mb-3 col-lg-6 ps-5 col-xs-12 input-wrapper form-container">
+                  <label for="password" class="form-label">Password</label>
+                  <div class="d-flex bd-highlight">
+                    <input id="password" name="password" type="password" class="form-control p-2 flex-grow-1 bd-highlight" value="<?php echo $user_data['password']; ?>" disabled>
+                    <span id=showPassword data-toggle="tooltip" class="btn btn-success" title="Lihat Password"><i id="icon" class="bi bi-eye pt-2 text-light"></i></span>
+                  </div>
+                </div> -->
+                 
+                      <div class="class=mb-3 col-lg-6 ps-5 col-xs-12 input-wrapper form-container">
                         <label for="name" class="form-label">Nama</label>
                         <input type="text" class="form-control" id="name" name="name" value="<?php echo $user_data['name']; ?>">
                       </div>
 
 
-                      <div class="mb-3 col-lg-6 col-xs-12 me-2 input-wrapper ">
+                      <!-- <div class="mb-3 col-lg-6 col-xs-12 me-2 input-wrapper ">
                         <label for="password" class="form-label">Password</label>
                         <div class="d-flex bd-highlight">
                           <input id="password" name="password" type="password" class="form-control p-2 flex-grow-1 bd-highlight" placeholder="masukkan password" value="<?php echo $user_data['password']; ?>">
                           <span id=showPassword data-toggle="tooltip" class="btn btn-success" title="Lihat Password"><i id="icon" class="bi bi-eye pt-2 text-light"></i></span>
                         </div>
-                      </div>
+                      </div> -->
 
 
 
-                    </div>
-                  </div>
+                   
 
                   <hr style="margin-top: 1rem;">
 

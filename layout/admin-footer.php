@@ -9,10 +9,11 @@
                     <img src="assets/logop.jpg" alt="" style="width:40px;height:40px">
 
                 </div>
-                <div id="ifoot" class="col-sm-2 pt-3 text-end">Ahli</div>
-                <div id="ifoot" class="col-sm-2 pt-3 text-end">Diskusi</div>
-                <div id="ifoot" class="col-sm-2 pt-3 text-end">Informasi</div>
-                <div id="ifoot" class="col-sm-2 pt-3 text-end">Manage User</div>
+                <div id="ifoot" class="col pt-3 text-end"><a class="mx-1 nav-link text-light " aria-current="page" href="index-ahli.php">Ahli</a></div>
+                <div id="ifoot" class="col pt-3 text-end"><a class="mx-1 nav-link  text-light" href="index-informasi.php">Informasi</a></div>
+                <div id="ifoot" class="col pt-3 text-end"><a class="mx-1 nav-link text-light" href="index-diskusi.php">Forum</a></div>
+                <div id="ifoot" class="col pt-3 text-end"><a class="mx-1 nav-link text-light" href="read-user.php">Manage User</a></div>
+                <div id="ifoot" class="col pt-3 text-end"><a class="mx-1 nav-link text-light" href="index-faq.php">FAQ</a></div>
             </div>
             <hr class="my-2 text-light">
 

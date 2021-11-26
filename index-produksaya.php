@@ -185,7 +185,17 @@
                                                 </td>
                                                 <td><?php echo $pecah['nama_produk']; ?></td>
                                                 <td class="text-center"><?php echo $pecah['harga']; ?></td>
-                                                <td class="text-center"><?php echo $pecah['stok']; ?></td>
+                                                <td class="text-center">
+                                                    <?php 
+                                                        if($pecah['stok']<1){
+                                                    ?>
+                                                            <span class="badge bg-danger">Out of stock</span>
+                                                    <?php
+                                                        }else{
+                                                        echo $pecah['stok'];  }
+                                                    ?>
+                                                
+                                                </td>
                                                 <td class="text-center">
                                                     <?php
                                                         $id_produk = $pecah['id_produk'];                                                        

@@ -2,7 +2,8 @@
     session_start();
     if($_SESSION['role']!="3"){
 		header("location:login.php?pesan=gagal");
-	}
+    }
+    $username = $_SESSION['username'];  
     require('function-user.php');
     $obj = new Db_Class();
 
@@ -41,6 +42,8 @@
     <link rel="stylesheet" href="style.css">
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- icon boostrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
     
     <title>Tambah User</title>
   </head>
@@ -109,8 +112,8 @@
                             <td><?=$user->kota?></td>
                             <td>
                             <form method="post">
-                                <input type="submit" class="btn btn-success" name= "update" value="Update">   
-                                <input type="submit" onClick="return confirm('Please confirm deletion');" class="btn btn-danger" name= "delete" value="Delete">
+                                <input type="submit" class="btn btn-success bi bi-pencil-square tombol" name= "update" value="Update">   
+                                <input type="submit" onClick="return confirm('Please confirm deletion');" class="btn btn-danger bi bi-trash tombol" name= "delete" value="Delete">
                                 <input type="hidden" value="<?=$user->username?>" name="id">
                             </form>
                             </td>

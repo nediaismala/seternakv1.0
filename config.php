@@ -1,9 +1,9 @@
 <?php
 $host = "localhost";
-$dbname = "dbseternak";
+$dbname = "seternak2";
 $user = "postgres";
-$port = "5432";
-$password = "password";
+$port = "5433";
+$password = "12345678";
 $connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password} ";
 $dbconn = pg_connect($connection_string);  
 

@@ -1,9 +1,9 @@
-<?php 
+<?php
 include 'koneksi.php';
 // $username =$_GET['username'];
 session_start();
-if($_SESSION['role']!="1"){
-header("location:login.php?pesan=gagal");
+if ($_SESSION['role'] != "1") {
+  header("location:login.php?pesan=gagal");
 }
 $username = $_SESSION['username'];
 ?>
@@ -27,6 +27,10 @@ $username = $_SESSION['username'];
   <!-- icon boostrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
 
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 
 
 
@@ -37,6 +41,10 @@ $username = $_SESSION['username'];
     .luas-modal {
       max-width: 700px;
       margin: 4rem auto;
+    }
+
+    .checked {
+      color: orange;
     }
 
     .tampung {
@@ -54,6 +62,10 @@ $username = $_SESSION['username'];
     .modal-label {
       color: #0e8550;
 
+    }
+
+    .teks-card {
+      margin-bottom: unset;
     }
 
 
@@ -92,6 +104,23 @@ $username = $_SESSION['username'];
     .desk {
       padding: 5px;
       text-align: justify;
+    }
+
+    a {
+      text-decoration: none;
+      color: unset;
+
+    }
+
+    a:hover {
+      text-decoration: none;
+      color: unset;
+
+    }
+
+    .bg-body img {
+      width: 100%;
+      height: 160px;
     }
 
     .our-team {
@@ -173,6 +202,8 @@ $username = $_SESSION['username'];
       margin-bottom: 5px;
     }
 
+
+
     .our-team .post {
       display: block;
       font-size: 15px;
@@ -216,6 +247,9 @@ $username = $_SESSION['username'];
 
       }
 
+.bg-body{
+  height:100%;
+}
       video {
         width: 250px;
         height: 150px;
@@ -245,7 +279,29 @@ $username = $_SESSION['username'];
 
         text-align: justify;
         font-size: 12px;
+
+
       }
+
+
+
+      .ukuran-f {
+        font-size: 10px;
+      }
+
+      .kanan {
+        float: inline-end;
+
+      }
+
+
+      .bg-body img {
+        width: 100%;
+        height: 100px;
+      }
+
+
+
 
 
     }
@@ -255,6 +311,15 @@ $username = $_SESSION['username'];
 
   include('layout/mitra-navbar.php');
   include('koneksi.php');
+
+  // $id_produk = $_GET['id_produk'];
+
+
+  // $query1 = pg_query($conn, "SELECT SUM(kuantitas) AS jumlah FROM detail_pemesanan where id_produk='$id_produk'");
+  // $data = pg_fetch_array($query1);
+
+  $query = pg_query("SELECT * FROM mitra LEFT JOIN public.user on mitra.id_pemilik=public.user.username where id_pemilik='$username'");
+  $pecah = pg_fetch_assoc($query);
 
 
 
@@ -274,11 +339,13 @@ $username = $_SESSION['username'];
 
   <div class="container-lg mt-5 tampung" style="min-height:56.4vh;">
 
+  <?php if (isset($pecah['nama_usaha'], $pecah['alamat_usaha'])) {
 
+?>
     <form action="" method="post">
-      <div class="input-group pt-5 cari">
+      <div class="input-group pt-5 pb-3 cari">
 
-        <input type="text" class="form-control" placeholder="temukan ahli" name="cari">
+        <input type="text" class="form-control" placeholder="temukan produk" name="cari">
         <button class="input-group-text btn btn-success bi bi-search" value="Cari"></button>
 
 
@@ -288,166 +355,183 @@ $username = $_SESSION['username'];
 
     <div class="row" style="min-height:inherit; margin:1rem;">
 
-      <?php
+    
 
-      error_reporting(0);
+        <?php
 
-
-      if (isset($_POST['cari'])) {
-
-        $cari = strtolower($_POST['cari']);
-        $result = pg_query("SELECT * from ahli where LOWER(nama_ahli) like '%$cari%'");
-        $cek = pg_num_rows($result);
-      } else {
-
-
-        $result = pg_query("SELECT * from ahli");
-      }
-
-      // if(!$result){
-      //   echo "<script>alert('Data Tidak Ada'); </script>";
-      // }
-      // else{
-      //   $result = pg_query("SELECT * from ahli");
-      // }
+        error_reporting(0);
 
 
 
+        if (isset($_POST['cari'])) {
+
+          $cari = strtolower($_POST['cari']);
+
+
+          $result = pg_query(" SELECT produk.nama_produk,
+        harga,
+        satuan,
+        deskripsi_produk, 
+        stok,
+        waktu_produksi,
+        peternak.nama_peternakan,
+        produk.id_produk, 
+        produk.foto as foto, 
+        public.user.foto as profile_pic,
+        public.user.kota from produk left join peternak on produk.id_peternak=peternak.id_peternak
+        left join public.user on peternak.id_peternak=public.user.username where produk.stok>0 and LOWER(nama_produk) like '%$cari%' OR
+        LOWER(nama_peternakan) like '%$cari%' ");
+
+          $cek = pg_num_rows($result);
+        } 
+        else {
+
+
+          $result = pg_query($conn, "SELECT produk.nama_produk,
+        harga,
+        satuan,
+        deskripsi_produk, 
+        stok,
+        waktu_produksi,
+        peternak.nama_peternakan,
+        produk.id_produk, 
+        produk.foto as foto, 
+        public.user.foto as profile_pic,
+        public.user.kota from produk left join peternak on produk.id_peternak=peternak.id_peternak
+        left join public.user on peternak.id_peternak=public.user.username where produk.stok>0");
 
 
 
-
-      $i = 0;
-
-
-      while ($user_data = pg_fetch_array($result)) {
-      ?>
-
-
+          // if(!$result){
+          //   echo "<script>alert('Data Tidak Ada'); </script>";
+          // }
+          // else{
+          //   $result = pg_query("SELECT * from ahli");
+          // }
 
 
-        <div class="col-md-3 col-sm-6 mt-3 mb-3 kolom" data-bs-toggle="modal" data-bs-target="#addRowModal<?php echo $user_data['id_ahli']; ?>">
-          <div class="our-team shadow bg-body" style="height:100%">
-            <div class="pic">
-              <img src="upload/<?php echo $user_data['foto']; ?>" alt="">
-            </div>
-            <div class="team-content">
-              <h5 class="font-hijau fw-bold"><?php echo $user_data['nama_ahli']; ?></h5>
-              <span class="post">NIP <?php echo $user_data['nip']; ?></span>
-              <span class="fw-bold jabatan"><?php echo $user_data['jabatan']; ?></span>
-              <p class="desk"><?php echo $user_data['deskripsi_ahli']; ?></p>
-            </div>
-          </div>
-        </div>
+
+        }
 
 
-        <!-- untuk melihat bentuk-bentuk modal kalian bisa mengunjungi laman bootstrap dan cari modal di kotak pencariannya -->
-        <!-- id setiap modal juga harus berbeda, cara membedakannya dengan menggunakan id_barang -->
-        <div class="modal fade" id="addRowModal<?php echo $user_data['id_ahli']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog luas-modal">
-            <div class="modal-content rounded-3">
-              <div class="modal-header">
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        $i = 0;
 
 
-              </div>
-              <!-- di dalam modal-body terdapat 4 form input yang berisi data.
-                    data-data tersebut ditampilkan sama seperti menampilkan data pada tabel. -->
-              <div class="modal-body">
-                <form>
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1" class="modal-label fw-bold">Profil Singkat</label>
-                    <p class="isi-modal"><?php echo $user_data['profil_singkat']; ?></p>
-                  </div>
+        while ($user_data = pg_fetch_array($result)) {
+        ?>
 
-                  <div class="form-group">
-                    <span class="jam-modal">Available &nbsp : <?php echo $user_data['jam_available']; ?></span>
-                  </div>
-
-                  <div class="form-group">
-                    <span class="jam-modal">Contact &nbsp &nbsp : <?php echo $user_data['contact']; ?></span>
-                  </div>
-
-                  <div class="form-group">
-                    <video id="video" width="600" height="300" controls>
-                      <source src="video_upload/<?php echo $user_data['video']; ?>">
-                    </video>
-                  </div>
-
-                  <!-- FAQ -->
-
-                  <section class="faq">
-                    <h5 class="fw-bold mb-3 mt-3 text-center" class="responsive-font-example">Frequently Asked Questions</h5>
-                    <div class="container accordion accordion-flush justify-content-center " id="accordionFlushExample" style="max-width: 50rem;">
+          <div class="col-md-3 col-sm-6 kolom" data-bs-toggle="modal">
 
 
+            <a href="form-show-marketplace.php?id_produk=<?php echo $user_data['id_produk']; ?>" target="_blank">
+              <div class="card shadow bg-body" >
+
+                <img src="assets/produk/<?php echo $user_data['foto']; ?>" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h6 class="card-title font-hijau fw-bold hapuslink"><?php echo $user_data['nama_produk']; ?></h6>
+                  <p class="hapuslink">Rp <?php echo number_format($user_data['harga'], '0', ',', '.'); ?>/<?php echo $user_data['satuan']; ?> </p>
+
+                  <div class="d-flex flex-wrap ">
+
+                    <div class="card-text align-self-end ukuran-f" style="flex: 1; position:relative;">
+                      <!-- <input  name="rating" class="rating" data-min="0" data-max="5" value="2"> -->
 
                       <?php
-                      $i = 0;
-                      $id = $user_data['id_ahli'];
-                  
-                      $coba = pg_query($conn, "SELECT * FROM  faq_ahli where id_ahli='$id'");
-                      while ($gas = pg_fetch_array($coba)) {
-                      ?>
 
-                        <div class="accordion-item mb-3 shadow mb-3 bg-white rounded">
-                          <h2 class="accordion-header" id="flush-headingOne<?php echo $gas['id_faq_ahli']; ?>">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne<?php echo $gas['id_faq_ahli']; ?>" aria-expanded="false" aria-controls="flush-collapseOne<?php echo $gas['id_faq_ahli']; ?>">
-                              <?php echo $gas['pertanyaan']; ?>
-                            </button>
-                          </h2>
-                          <div id="flush-collapseOne<?php echo $gas['id_faq_ahli']; ?>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne<?php echo $gas['id_faq_ahli']; ?>" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body"><?php echo $gas['jawaban']; ?></div>
-                          </div>
-                        </div>
+                      $id_produk = $user_data['id_produk'];
+                      $rate = pg_query("SELECT AVG(rating) as rate from pemesanan 
+                    join detail_pemesanan on pemesanan.no_pemesanan=detail_pemesanan.no_pemesanan where id_produk='$id_produk'");
+                      $pecah2 = pg_fetch_array($rate);
 
 
-                      <?php
-                      }
-                      ?>
+                      if (isset($pecah2['rate'])) {
+                        for ($i = 0; $i < $pecah2['rate']; $i++) { ?>
+                          <span class="fa fa-star checked hapuslink ukuran-f" class="m-1"></span>
+                        <?php
+                        }
+                      } else {
+                        ?>
+                        <span class="text-black-50 hapuslink ukuran-f">Not Rated</span>
+                      <?php } ?>
+                    </div>
 
+
+                    <div class="card-text">
+                      <p class="teks-card"><small class="fw-bold hapuslink kanan"><?php echo $user_data['nama_peternakan']; ?></small></p>
+                      <p class="teks-card"><small class="font-hijau hapuslink kanan"><?php echo $user_data['waktu_produksi']; ?></small></p>
+                      <p class="teks-card"><small class="font-hijau hapuslink kanan"><?php echo $user_data['stok']; ?> stock</small></p>
 
                     </div>
-                  </section>
 
 
 
-                </form>
+
+                  </div>
+
+
+
+
+                </div>
               </div>
-              <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </a>
+
+
+          </div>
+
+
+          <!-- untuk melihat bentuk-bentuk modal kalian bisa mengunjungi laman bootstrap dan cari modal di kotak pencariannya -->
+          <!-- id setiap modal juga harus berbeda, cara membedakannya dengan menggunakan id_barang -->
+
+
+
+
+
+        <?php
+        }
+        ?>
+
+
+
+        <?php if ($cek == "0") { ?>
+
+          <div style=" display: flex; justify-content:center; align-items:center;">
+            <div class="shadow rounded bg-body our-team p-5">
+
+              <div class="team-content">
+                <h5 class="font-hijau fw-bold">Data tidak Ditemukan</h5>
+
               </div>
             </div>
           </div>
-        </div>
 
 
+        <?php } ?>
+
+
+
+
+        <!-- Button trigger modal -->
 
       <?php
-      }
+      } else {
       ?>
 
 
 
-      <?php if ($cek == "0") { ?>
-
-        <div style=" display: flex; justify-content:center; align-items:center;">
-          <div class="shadow rounded bg-body our-team p-5">
-
-            <div class="team-content">
-              <h5 class="font-hijau fw-bold">Data tidak Ditemukan</h5>
-
+        <section>
+          <div class="container">
+            <div class="row my-5">
+              <div class="col text-center mt-5">
+                <img src="assets/notfound.svg" class="my-5" alt="" width="350px" height="150px">
+                <h5 class="text-muted">Isi data Mitra terlebih dahulu...</h5>
+                <a href="index-profile-mitra.php" class="btn btn-success mt-2 mb-5">Go to profile</a>
+              </div>
             </div>
           </div>
-        </div>
-
+        </section>
 
       <?php } ?>
-
-
-
-      <!-- Button trigger modal -->
 
 
 
@@ -481,6 +565,9 @@ $username = $_SESSION['username'];
   <!-- owl cousel min.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+  <script>
+    $("#ratinginput").rating();
+  </script>
 
 </body>
 

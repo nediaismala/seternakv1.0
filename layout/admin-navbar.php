@@ -17,11 +17,11 @@
                   <a class="mx-4 nav-link text-light" href="read-user.php">Manage User</a>
                   <a class="mx-4 nav-link text-light" href="index-faq.php">FAQ</a>
             </div>
-            <div id="bdm" class="ms-auto">
+            <div class="ms-auto">
                 <ul class="navbar-nav ">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Hi
+                            Hi, <?php echo $username; ?>
                         </a>
 
 
