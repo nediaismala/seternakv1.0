@@ -91,7 +91,7 @@ $validate='';
 
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-between align-items-center" style="border: none">
-              <small><a href="forgot_pass.php" class="link-success">Lupa Password?</a></small>
+                <small><a href="forgot_pass.php" class="link-success">Lupa Password?</a></small>
               <small><a href="regis.php" class="link-success">Belum punya akun?<b>Daftar</b></a></small>
               </li>
             </ul>

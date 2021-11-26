@@ -1,12 +1,42 @@
-<?php
-    include 'koneksi.php';
-    // $username =$_GET['username'];
-    session_start();
-    if($_SESSION['role']!="2"){
-		header("location:login.php?pesan=gagal");
-	}
-    $username = $_SESSION['username'];
-    // echo $username;
+<?php 
+include 'koneksi.php';
+// $username =$_GET['username'];
+session_start();
+if($_SESSION['role']!="2"){
+header("location:login.php?pesan=gagal");
+}
+$username = $_SESSION['username'];
+$sql=pg_query("SELECT password FROM public.user where username='$username'");
+$cek=pg_affected_rows($sql);
+
+if($cek > 0){
+  $data = pg_fetch_assoc($sql);
+  $pass_dulu = $data['password'];
+
+  if(isset($_POST['ubah'])){
+    $pass_lama = $_POST['password_lama'];
+    $pass_baru = $_POST['password_baru'];
+    $username = $_POST['username'];
+    $baruHash=password_hash($pass_baru, PASSWORD_DEFAULT);
+
+    if(password_verify($pass_lama, $pass_dulu)){
+      $query3= "UPDATE public.user SET password = '$baruHash' where username='$username'";
+      $result=pg_query($query3);
+      if($result){
+        echo '<script>'; 
+        echo 'alert("Password anda sudah berubah");'; 
+        echo 'window.location.href = "index-profile-admin.php";';
+        echo '</script>';
+      }else{
+        echo '<script>'; 
+        echo 'alert("Password gagal di ubah");'; 
+        echo 'window.location.href = "index-profile-admin.php";';
+        echo '</script>';
+      }
+      
+    }
+  }
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -372,8 +402,10 @@
             
        
               <div class="field" style="display: flex; justify-content: flex-start; ">
-                <a href="form-edit-profile-peternak.php?username=<?php echo $user_data['username']; ?>"><button class="btn btn-success ps-4 pe-4">Edit Profil</button>
+                <a href="form-edit-profile-peternak.php?username=<?php echo $user_data['username']; ?>"><button class="btn btn-success ps-4 pe-4 me-2">Edit Profil</button>
                 </a>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float:right;">Ubah Password</button>
+
 
               </div>
 
@@ -394,6 +426,45 @@
 
   <!-- </form> -->
   </div>
+
+  <!-- Modal -->
+  <form action="" method="post">
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                    
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Password</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                        
+                            <!-- <p>Apakah pengemasan sudah sesuai?</p> -->
+                            <input type="hidden" name="username" id="" value="<?=$username;?>">
+                            <div class="mb-3 pe-5 ps-5">
+                              <label for="password_lama" class="form-label">Password Lama</label>
+                              <input type="text" class="form-control" id="password_lama" name="password_lama" placeholder="">
+                            </div>
+
+                            <div class="mb-3 pe-5 ps-5">
+                              <label for="password_baru" class="form-label">Password Baru</label>
+                              <input type="text" class="form-control" id="password_baru" name="password_baru" placeholder="">
+                            </div>
+                            
+                            
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-success" name="ubah" values="Submit">
+                        </div>
+                        </div>
+                        
+                    </div>
+                    </div>
+                  </form>
+                      <!-- End Modal -->
 
 
 
