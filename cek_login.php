@@ -19,7 +19,7 @@ if($cek > 0){
 			$_SESSION['username'] = $username;
 			$_SESSION['role'] = "1";
 			// alihkan ke halaman dashboard user
-			header("location:halaman_user.php");
+			header("location:index-pasar.php");
 
 		// cek jika user login sebagai partner
 		}else if($data['role']=="2"){

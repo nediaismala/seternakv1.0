@@ -24,8 +24,8 @@ $username = $_SESSION['username'];
     $no_pemesanan=generateRandomString();
     $tanggal=date('Y-m-d');
 
-    $query = pg_query("INSERT INTO pemesanan (no_pemesanan, id_pemilik, tgl_pesan, status) 
-                                      VALUES ('$no_pemesanan', '$username', '$tanggal', 1);");
+    $query = pg_query("INSERT INTO pemesanan (no_pemesanan, id_pemilik, tgl_pesan) 
+                                      VALUES ('$no_pemesanan', '$username', '$tanggal');");
 
     $loop = pg_query("SELECT * from keranjang where id_pemilik='$username' and status=1");
     while ($data = pg_fetch_array($loop)) {
@@ -33,8 +33,8 @@ $username = $_SESSION['username'];
       $id_produk= $data['id_produk'];
       $kuantitas= $data['jumlah'];
       $id_keranjang = $data['id_keranjang'];
-      $detailquery = pg_query("INSERT INTO detail_pemesanan (no_pemesanan, id_produk, kuantitas) 
-                                                     VALUES ('$no_pemesanan','$id_produk',$kuantitas);");
+      $detailquery = pg_query("INSERT INTO detail_pemesanan (no_pemesanan, id_produk, kuantitas,status) 
+                                                     VALUES ('$no_pemesanan','$id_produk',$kuantitas,1);");
       $selectstock = pg_query("SELECT * from produk where id_produk='$id_produk'");
       $datastock = pg_fetch_assoc($selectstock);
       $stock = $datastock['stok'];

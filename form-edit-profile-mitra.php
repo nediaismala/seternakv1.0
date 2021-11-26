@@ -307,7 +307,7 @@
                         <input type="text" class="form-control" id="name" name="name" value="<?php echo $user_data['name']; ?>">
                       </div>
 
-
+                      <input id="password" name="password" type="hidden" class="form-control p-2 flex-grow-1 bd-highlight" value="<?php echo $user_data['password']; ?>" >
                       <!-- <div class="mb-3 col-lg-6 col-xs-12 me-2 input-wrapper ">
                         <label for="password" class="form-label">Password</label>
                         <div class="d-flex bd-highlight">

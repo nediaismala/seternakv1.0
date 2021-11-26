@@ -236,8 +236,8 @@ $pecah2 = pg_fetch_array($rate);
                     <hr>
                     <?php
                     if (isset($pecah2['rate'])) {
-                        $review = pg_query("SELECT rating, 
-                                                            feedback,
+                        $review = pg_query("SELECT detail_pemesanan.rating, 
+                                                            detail_pemesanan.feedback,
                                                             mitra.nama_usaha as rm,
                                                             public.user.foto as ava
                                                             from pemesanan 

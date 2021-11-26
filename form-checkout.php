@@ -307,6 +307,11 @@ $pecah = pg_fetch_assoc($query);
                   <input type="text" class="form-control" id="contact" name="contact" disabled value="<?php echo $pecah['contact']; ?>">
                 </div>
 
+                <div class="mb-3 pe-5 ps-5">
+                  <a href="index-profile-mitra.php" class="btn btn-success mt-2 ">Edit Data Pengiriman</a>
+                </div>
+
+
 
 
 
@@ -334,13 +339,11 @@ $pecah = pg_fetch_assoc($query);
                     <img id="profile-pic" class="rounded-circle my-2 shadow" src="upload/<?php echo $pecah['profile_pic']; ?>" width="40px" height="40px">
                     <h6 class="fw-bold ms-2 list-inline-item font-hijau"><?php echo $pecah['nama_peternakan']; ?> - </h6>
                     <h6 class="fw-bold list-inline-item"><?php echo $pecah['kota']; ?></h6><br>
-
                   </div> -->
 
 
                   <!-- <div class="">
                     <a href="index-pasar.php"><span type="submit" name="tambah-pesanan" class="btn btn-success bi bi-plus font-p"> Pesanan</span></a>
-
                   </div> -->
 
 

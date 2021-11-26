@@ -14,7 +14,7 @@
             <a class="mx-4 nav-link  text-light" href="index.php#tahukahkamu">Tahukah Kamu</a>
             <a class="mx-4 nav-link text-light" href="tentangkami.php">Tentang Kami</a>
         </div>
-            <div id="bdm" class="ms-auto">
+            <div class="ms-auto">
                 <a href="regis.php" class="btn btn-light mx-1 text-success shadow px-4">Daftar</a>
                 <a href="login.php" class="btn btn-success mx-1 hijau shadow px-4">Masuk</a>
             </div>

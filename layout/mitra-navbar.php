@@ -11,9 +11,9 @@
             <div class="navbar-nav ">
                 <a class="mx-4 nav-link text-light " aria-current="page" href="index-pasar.php">Pasar</a>
                 <a class="mx-4 nav-link  text-light" href="index-tanya-ahli-mitra.php">Tanya Ahli</a>
-                <a class="mx-4 nav-link text-light" href="">Diskusi</a>
+                <a class="mx-4 nav-link text-light" href="index-forum-mitra.php">Diskusi</a>
             </div>
-            <div id="bdm" class="ms-auto">
+            <div  class="ms-auto">
                 
                 <ul class="navbar-nav ">
                 <a class="mx-3 nav-link text-light bi bi-cart " href="index-keranjang.php"></a>
@@ -26,7 +26,7 @@
 
                         <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #0e8550;" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item" href="index-profile-mitra.php">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Pesananan Saya</a></li>
+                            <li><a class="dropdown-item" href="so-belumbayar-mitra.php">Pesananan Saya</a></li>
                             <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                         </ul>
                     </li>

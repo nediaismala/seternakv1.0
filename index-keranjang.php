@@ -96,6 +96,11 @@ $keranjangcek = pg_fetch_assoc($cekkeranjang);
       margin: 0 5px 0 5px;
     }
 
+    
+    .tampung {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
     .stok {
       height: 28px;
       width: 50px;
@@ -204,11 +209,11 @@ $keranjangcek = pg_fetch_assoc($cekkeranjang);
 
 
 
-  <div class="container-lg mt-5" style="min-height:71.3vh;">
+  <div class="container-lg mt-5 tampung" style="min-height:71.3vh;">
 
 
     <form action="form-checkout.php" method="post" enctype="multipart/form-data">
-      <div class="row mt-5" style="min-height:inherit;">
+     
 
         <?php
         if (isset($keranjangcek['id_keranjang'])) {
@@ -375,7 +380,7 @@ $keranjangcek = pg_fetch_assoc($cekkeranjang);
 
         <?php
         } ?>
-      </div>
+
     </form>
   </div>
 

@@ -31,12 +31,12 @@ $username = $_POST['username'];
     move_uploaded_file($source,$folder.$foto);
   
 
-    $query = pg_query($conn, "UPDATE public.user SET name='$name', email='$email', password='$password', contact='$contact',kota='$kota', alamat='$alamat', foto='$foto' WHERE username='$username'");
+    $query = pg_query($conn, "UPDATE public.user SET name='$name', email='$email',  contact='$contact',kota='$kota', alamat='$alamat', foto='$foto' WHERE username='$username'");
     $query2 = pg_query($conn, "UPDATE public.mitra SET nama_usaha='$nama_usaha', alamat_usaha='$alamat_usaha' WHERE id_pemilik='$id_pemilik'");
 
   } else {
 
-    $query = pg_query($conn, "UPDATE public.user SET name='$name', email='$email', password='$password', contact='$contact',kota='$kota', alamat='$alamat' WHERE username='$username'");
+    $query = pg_query($conn, "UPDATE public.user SET name='$name', email='$email',  contact='$contact',kota='$kota', alamat='$alamat' WHERE username='$username'");
     $query2 = pg_query($conn, "UPDATE public.mitra SET nama_usaha='$nama_usaha', alamat_usaha='$alamat_usaha' WHERE id_pemilik='$id_pemilik'");
 
 

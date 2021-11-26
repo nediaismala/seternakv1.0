@@ -309,6 +309,10 @@ $pecah = pg_fetch_assoc($query);
                   <input type="text" class="form-control" id="contact" name="contact" disabled value="<?php echo $pecah['contact']; ?>">
                 </div>
 
+                <div class="mb-3 pe-5 ps-5">
+                  <a href="index-profile-mitra.php" class="btn btn-success mt-2 ">Edit Data Pengiriman</a>
+                </div>
+
 
 
 

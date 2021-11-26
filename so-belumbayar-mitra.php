@@ -1,4 +1,5 @@
 <?php
+
     session_start(); 
 	// cek apakah yang mengakses halaman ini sudah login
 	if($_SESSION['role']!="1"){
@@ -7,6 +8,7 @@
     include("config.php");
     $error='';
     $username = $_SESSION['username'];
+
     $query=("SELECT DISTINCT ON (detail_pemesanan.no_pemesanan) *
     FROM detail_pemesanan
     left join pemesanan on detail_pemesanan.no_pemesanan=pemesanan.no_pemesanan
@@ -14,6 +16,7 @@
     left join public.user on mitra.id_pemilik=public.user.username
     where mitra.id_pemilik='$username' AND detail_pemesanan.status='1'
     ORDER BY detail_pemesanan.no_pemesanan ASC");
+
     $datas = pg_query($dbconn,$query); 
     $cek = pg_affected_rows($datas);
     if($cek > 0){
@@ -34,6 +37,8 @@
     <link rel="stylesheet" href="style.css">
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- icon boostrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
     <title>Status Order</title>
   </head>
   <style type="text/css">
@@ -44,6 +49,9 @@
     #right-btn { align:right;}
     #image { width: 100px ; height: 100px ; margin-right:20px;}
     #image2 { width: 50px ; height: 50px ; margin-right:20px;}
+    .nav-link.order {
+    color: #198754 !important;
+    }
   </style>
   <body>
 
@@ -59,25 +67,25 @@
     -->
     
     <?php
-    include('layout/admin-navbar.php');
+    include('layout/mitra-navbar.php');
     ?>
 
 
-    <div class="container"style="padding-top:100px;padding-bottom:5%;"> 
+    <div class="container"style="padding-top:100px;padding-bottom:5%;min-height:71.3vh;"> 
         <div class="card text-center">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="true" href="so-belumbayar-mitra.php">Belum dibayar</a>
+                    <a class="nav-link order active" aria-current="true" href="so-belumbayar-mitra.php">Belum dibayar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-pengemasan-mitra.php">Pengemasan</a>
+                    <a class="nav-link order" href="so-pengemasan-mitra.php">Pengemasan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-pengiriman-mitra.php">Pengiriman</a>
+                    <a class="nav-link order" href="so-pengiriman-mitra.php">Pengiriman</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-selesai-mitra.php">Selesai</a>
+                    <a class="nav-link order" href="so-selesai-mitra.php">Selesai</a>
                 </li>
                 </ul>
             </div>
@@ -107,6 +115,6 @@
     
     <?php     
         
-    include('layout/admin-footer.php');
+    include('layout/mitra-footer.php');
     ?>
 </html>

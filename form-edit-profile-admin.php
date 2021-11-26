@@ -301,6 +301,7 @@ $username = $_SESSION['username'];
                     </div>
                   </div>
 
+                  <input id="password" name="password" type="hidden" class="form-control p-2 flex-grow-1 bd-highlight" value="<?php echo $user_data['password']; ?>" >
                   <!-- <div class="mb-3 col-lg-6 ps-5 col-xs-12 input-wrapper form-container">
                   <label for="password" class="form-label">Password</label>
                   <div class="d-flex bd-highlight">

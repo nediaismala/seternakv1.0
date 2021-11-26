@@ -14,7 +14,7 @@
             <a class="mx-4 nav-link  text-light" href="index-tanya-ahli.php">Tanya Ahli</a>
             <a class="mx-4 nav-link text-light" href="index-forum.php">Diskusi</a>
         </div>
-            <div id="bdm" class="ms-auto">
+            <div  class="ms-auto">
             <ul class="navbar-nav ">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">

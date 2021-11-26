@@ -4,8 +4,9 @@ include('../config.php');
 if(isset($_POST['submit'])){
     $feedback=$_POST['feedback'];
     $rating = $_POST['rating'];
+    $id_produk = $_POST['id_produk'];
     $id=$_POST['id'];
-    $query = pg_query($dbconn,"UPDATE pemesanan SET feedback='$feedback', rating='$rating' WHERE no_pemesanan='$id'");
+    $query = pg_query($dbconn,"UPDATE detail_pemesanan SET feedback='$feedback', rating='$rating' WHERE no_pemesanan='$id' and id_produk='$id_produk'");
     // $hasil = pg_affected_rows($query);
     if($query){
         echo '<script>'; 

@@ -55,7 +55,7 @@ $username = $_SESSION['username'];
 
   <!-- Content -->
   <section>
-    <div class="container " style="margin-top:100px;">
+  <div class="container " style="margin-top:100px;min-height:59vh;">
       <?php
         $i=0;
         $ambil = pg_query($conn,"SELECT * FROM forum");
@@ -74,7 +74,8 @@ $username = $_SESSION['username'];
       <?php
         };
       ?>
-    </div>
+      </div>
+    
   </section>
  
   <!-- Content end -->

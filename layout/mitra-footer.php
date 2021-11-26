@@ -9,12 +9,12 @@
         <br><br>
         <div class="container-md">
             <div class="row text-light">
-                <div class="col-md-4">
+                <div class="col">
                     <img src="assets/logop.jpg" alt="" style="width:40px;height:40px">
                 </div>
-                <div id="ifoot" class="col-sm-2 pt-3 text-end">Pasar</div>
-                <div id="ifoot" class="col-sm-2 pt-3 text-end" href="index-tanya-ahli-mitra.php">Tanya Ahli</div>
-                <div id="ifoot" class="col-sm-2 pt-3 text-end">Diskusi</div>
+                <div id="ifoot" class="col-sm-2 pt-2 text-end"><a class=" nav-link text-light " aria-current="page" href="index-pasar.php">Pasar</a></div>
+                <div id="ifoot" class="col-sm-2 pt-2 text-end"><a class=" nav-link  text-light" href="index-tanya-ahli-mitra.php">Tanya Ahli</a></div>
+                <div id="ifoot" class="col-sm-2 pt-2 text-end"><a class=" nav-link text-light" href="index-forum-mitra.php">Diskusi</a></div>
             </div>
             <hr class="my-2 text-light">
             <div class="row text-light mb-2 footer-wrapper">

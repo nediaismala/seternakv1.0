@@ -5,9 +5,9 @@
                 <div class="col-md-6">
                     <img src="assets/logop.jpg" alt="" style="weight:40px;height:40px">
                 </div>
-                <div id="ifoot" class="col-sm-2 pt-3 text-end">Produk Saya</div>
-                <div id="ifoot" class="col-sm-2 pt-3 text-end">Tanya Ahli</div>
-                <div id="ifoot" class="col-sm-2 pt-3 text-end">Diskusi
+                <div id="ifoot" class="col-sm-2 pt-3 text-end"><a class=" nav-link text-light " aria-current="page" href="index-produksaya.php">Produk Saya</a></div>
+                <div id="ifoot" class="col-sm-2 pt-3 text-end"><a class=" nav-link  text-light" href="index-tanya-ahli.php">Tanya Ahli</a></div>
+                <div id="ifoot" class="col-sm-2 pt-3 text-end"><a class=" nav-link text-light" href="index-forum.php">Diskusi</a>
                     <a href="#"></a>
                 </div>
             </div>

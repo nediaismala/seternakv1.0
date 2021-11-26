@@ -4,8 +4,10 @@
 	if($_SESSION['role']!="1"){
 		header("location:login.php?pesan=gagal");
 	}
+    $username=$_SESSION['username'];
     include("config.php");
     $error='';
+    $id_produk=$_GET['id_produk'];
     $id=$_GET['id'];
     $username = $_SESSION['username'];
     $query=("SELECT produk.foto as foto_produk, * from pemesanan
@@ -41,6 +43,9 @@
     #right-btn { align:right;}
     #image { width: 100px ; height: 100px ; margin-right:20px;}
     #image2 { width: 50px ; height: 50px ; margin-right:20px;}
+    .nav-link.order {
+    color: #198754 !important;
+    }
     @import url(./fonts/font-awesome/css/font-awesome.css);
 
         form,
@@ -134,24 +139,24 @@
     -->
     
     <?php
-    include('layout/admin-navbar.php');
+    include('layout/mitra-navbar.php');
     ?>
 
-    <div class="container"style="padding-top:100px;padding-bottom:5%;"> 
+    <div class="container"style="padding-top:100px;padding-bottom:5%;min-height:71.3vh;"> 
         <div class="card text-center">
             <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="true" href="so-belumbayar-mitra.php">Belum dibayar</a>
+                    <a class="nav-link order" aria-current="true" href="so-belumbayar-mitra.php">Belum dibayar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-pengemasan-mitra.php">Pengemasan</a>
+                    <a class="nav-link order" href="so-pengemasan-mitra.php">Pengemasan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="so-pengiriman-mitra.php">Pengiriman</a>
+                    <a class="nav-link order" href="so-pengiriman-mitra.php">Pengiriman</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="so-selesai-mitra.php">Selesai</a>
+                    <a class="nav-link order active" href="so-selesai-mitra.php">Selesai</a>
                 </li>
                 </ul>
             </div>
@@ -186,28 +191,22 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card-body">
-                                <p id="right" class="card-text">Rp.<?=$data->harga?></p>
+                                <p id="right" class="card-text">Rp.<?=$data->harga*$data->kuantitas?></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <br>
-                                    
-            <?php endwhile; ?>   
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float:right;">
+                <button type="button" class="btn btn-outline-success col-md-2 ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal<?=$data->id_produk?>" style="float:right;">
                 Beri Rating
                 </button>
-            </div>
-            
-            </div>
-        </div>
-    </div>
-    
+                                    
+          
+  
     
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal<?=$data->id_produk?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
     
         <div class="modal-content">
@@ -219,6 +218,7 @@
         <div class="modal-body">
         <!-- <input type="text" name="" id="" value="<?=$id?>"> -->
             <form method="POST" action="function/proses_review.php">
+                <input type="hidden" name="id_produk" value="<?=$id_produk?>">
                 <input type="hidden" id="id" name="id" value="<?=$id?>">
                 <div id="rating" class="rating">
                 <input type="radio" class="rate" id="star5" name="rating" value="5"/>
@@ -241,12 +241,24 @@
             <label for="exampleFormControlTextarea1" class="form-label">Komentar</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="feedback" id="feedback"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" name="submit" id="submit" value="submit">Submit</button>
+            <button type="submit" class="btn btn-success" name="submit" id="submit" value="submit">Submit</button>
             </form>
         </div>
             </div>
     </div>
     </div>
+
+
+    <?php endwhile; ?>   
+                <!-- Button trigger modal -->
+                
+
+    </div>
+            
+            </div>
+        </div>
+    </div>
+    
     <script type="text/javascript" src="./jquery-2.1.4.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () { 
@@ -276,6 +288,6 @@
     
     <?php     
         
-    include('layout/admin-footer.php');
+    include('layout/mitra-footer.php');
     ?>
 </html>
